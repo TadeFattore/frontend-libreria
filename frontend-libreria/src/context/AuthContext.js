@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
@@ -13,7 +15,10 @@ export const AuthProvider = ({ children }) => {
             axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
-            .then(res => setUser(res.data))
+            .then(res => {
+                setUser(res.data);
+                console.log("✅ Usuario cargado:", res.data); // 🔹 Verifica si se carga correctamente
+            })
             .catch(() => logout());
         }
         setLoading(false);
@@ -24,6 +29,7 @@ export const AuthProvider = ({ children }) => {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, { email, password });
             localStorage.setItem("token", res.data.token);
             setUser(res.data.user);
+            console.log("✅ Usuario autenticado:", res.data.user);
         } catch (error) {
             throw new Error("Credenciales incorrectas");
         }
