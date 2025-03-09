@@ -22,14 +22,18 @@ export default function RegisterPage() {
       return;
     }
 
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`;
+    console.log("🔹 Enviando solicitud a:", apiUrl); // 👈 DEBUG
+
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, formData);
+      await axios.post(apiUrl, formData);
       alert("Registro exitoso. Ahora puedes iniciar sesión.");
       router.push("/login");
     } catch (error) {
+      console.error("❌ Error en el registro:", error.response?.data || error.message);
       setError(error.response?.data?.msg || "Error en el registro");
     }
-  };
+};
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

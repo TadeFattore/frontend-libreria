@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
@@ -9,9 +10,14 @@ export default function AdminDashboard() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      router.push("/");
+    }
+  }, [user, router]);
+
   if (!user || user.role !== "admin") {
-    router.push("/"); // Redirige si no es admin
-    return null;
+    return null; // Evita renderizar contenido mientras se redirige
   }
 
   return (
