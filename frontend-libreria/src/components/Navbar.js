@@ -10,7 +10,7 @@ export default function Navbar() {
     return (
         <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
             <Link href="/" className="text-xl font-bold">
-                📚 Librería Online
+                📚 Libros Mágicos
             </Link>
             <Link href="/books" className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
                 📚 Ver libros
